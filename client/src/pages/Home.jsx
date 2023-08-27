@@ -1,6 +1,7 @@
-import { motion, AnimatePresense } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useSnapshot } from "valtio";
 import state from "../store";
+import { CustomButton } from "../components";
 //vv makes framer motion animations work vv //
 import {
   headContainerAnimation,
@@ -13,7 +14,7 @@ import {
 const Home = () => {
   const snap = useSnapshot(state); //one current snapshot of that state
   return (
-    <AnimatePresense>
+    <AnimatePresence>
       {snap.intro && (
         <motion.section className="home" {...slideAnimation("left")}>
           <motion.header {...slideAnimation("down")}>
@@ -38,11 +39,18 @@ const Home = () => {
                 customization tool. <strong>Unleash your imagination</strong>{" "}
                 and define your own style.
               </p>
+
+              <CustomButton
+                type="filled"
+                title="Customize It"
+                handleClick={() => (state.intro = false)} // callback function, updates the voltio state
+                CustomStyles="w-fit px-4 py-2.5 font-bold text-sm"
+              />
             </motion.div>
           </motion.div>
         </motion.section>
       )}
-    </AnimatePresense>
+    </AnimatePresence>
   );
 };
 
