@@ -4,6 +4,7 @@ import { easing } from "maath";
 import { useSnapshot } from "valtio";
 import state from "../store";
 const CameraRig = ({ children }) => {
+  //to display shirt we must pass children
   //pass in children from react prop to render it out
   const group = useRef();
   const snap = useSnapshot(state);
@@ -28,17 +29,13 @@ const CameraRig = ({ children }) => {
     //set the model rotation smoothly
     easing.dampE(
       group.current.rotation,
-      [state.pointer.y / 10, -state.pointer.x / 5.0],
+      [state.pointer.y / 10, -state.pointer.x / 5, 0],
       0.25,
       delta
     );
   });
 
-  return (
-    <group className="Alex" ref={group}>
-      {children}
-    </group>
-  );
+  return <group ref={group}>{children}</group>;
 };
 
 export default CameraRig;
