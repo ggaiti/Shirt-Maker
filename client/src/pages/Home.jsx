@@ -24,9 +24,9 @@ const Home = () => {
               className="w-8 h-8 object-contain"
             />
           </motion.header>
-          <motion.div className="home.content" {...headContainerAnimation}>
+          <motion.div className="home-content" {...headContainerAnimation}>
             <motion.div {...headTextAnimation}>
-              <h1>
+              <h1 className="head-text">
                 LET'S <br className="xl:block hidden" /> DO IT.
               </h1>
             </motion.div>
@@ -44,7 +44,7 @@ const Home = () => {
                 type="filled"
                 title="Customize It"
                 handleClick={() => (state.intro = false)} // callback function, updates the voltio state
-                CustomStyles="w-fit px-4 py-2.5 font-bold text-sm"
+                customStyles="w-fit px-4 py-2.5 font-bold text-sm"
               />
             </motion.div>
           </motion.div>
