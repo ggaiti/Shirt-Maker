@@ -11,15 +11,41 @@ const Shirt = () => {
 
   const logoTexture = useTexture(snap.logoDecal);
   const fullTexture = useTexture(snap.fullDecal);
+
+  useFrame((state, delta) =>
+    easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
+  ); //applies color smoothly
+
+  const stateString = JSON.stringify(snap); //updates shirt
   return (
-    <group>
+    <group key={stateString}>
       <mesh
         castShadow
         geometry={nodes.T_Shirt_male.geometry}
         material={materials.lambert1}
         material-roughness={1}
         dispose={null}
-      ></mesh>
+      >
+        {snap.isFullTexture && ( //the logo on the shirt
+          <Decal
+            position={[0, 0, 0]}
+            rotation={[0, 0, 0]}
+            scale={1}
+            map={fullTexture}
+          />
+        )}
+        {snap.isLogoTexture && (
+          <Decal
+            position={[0, 0.04, 0.15]}
+            rotation={[0, 0, 0]}
+            scale={0.15}
+            map={logoTexture}
+            mapAnisotropy={16} //changes quality of the texture
+            depthTest={false} //makes sure to render on top of other objects on scene
+            depthWrite={true}
+          />
+        )}
+      </mesh>
     </group>
   );
 };
