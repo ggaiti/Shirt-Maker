@@ -19,7 +19,7 @@ const Customizer = () => {
 
   const [file, setFile] = useState("");
   const [prompt, setPrompt] = useState("");
-  const [generateImg, setGenerateImg] = useState(false);
+  const [generatingImg, setGeneratingImg] = useState(false);
   const [activeEditorTab, setActiveEditorTab] = useState("");
   const [activeFilterTab, setActiveFilterTab] = useState({
     logoShirt: true,
@@ -51,10 +51,18 @@ const Customizer = () => {
     if (!prompt) return alert("Please enter a prompt");
     try {
       //call our backend to generate an ai image
+      setGeneratingImg(true);
+      const response = await fetch("http://localhost:8080/api/va/dalle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      const data = await response.json();
+      handleDecals(type, `data:image/png;base64,${data.photo}`);
     } catch (error) {
       alert(error);
     } finally {
-      setGenerateImg(false);
+      setGeneratingImg(false);
       setActiveEditorTab("");
     }
   };
