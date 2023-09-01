@@ -53,7 +53,7 @@ const Customizer = () => {
       //call our backend to generate an ai image
       setGeneratingImg(true);
       const response = await fetch(
-        "https://three-js-shirt-maker.onrender.com",
+        "https://three-js-shirt-maker.onrender.com/api/va/dalle",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
